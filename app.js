@@ -1,19 +1,35 @@
 // Requiring module
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-// Creating express object
 const app = express();
+const port = 3000;
+app.use(cors());
+
+// Configuring body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Handling GET request
-app.post('/', (req, res) => {
-	res.send('A simple Node App is '
-		+ 'running on this server')
+app.post('/time-lapse', (req, res) => {
+	res.send(req.body);
 	res.end()
 })
 
-// Port Number
-const PORT = process.env.PORT ||4200;
+app.post('/time-lapse/cancel', (req, res) => {
+	res.send(req.body);
+	res.end()
+})
 
-// Server Setup
-app.listen(PORT,console.log(
-`Server started on port ${PORT}`));
+app.post('/bulb', (req, res) => {
+	res.send(req.body);
+	res.end()
+})
+
+app.post('/bulb/cancel', (req, res) => {
+	res.send(req.body);
+	res.end()
+})
+
+app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
